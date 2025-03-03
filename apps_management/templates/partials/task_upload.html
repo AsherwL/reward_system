@@ -1,0 +1,51 @@
+{% load static %}
+
+<!-- Modal Upload Proof -->
+<div id="task-upload-modal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75 z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+        <!-- Bouton de fermeture -->
+        <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+            <img src="{% static 'images/c.png' %}" alt="Close" class="w-6 h-6 hover:opacity-75 transition-opacity">
+
+        </button>
+
+        <!-- Titre -->
+        <h2 class="text-xl font-semibold flex items-center">
+            <i data-lucide="camera" class="w-6 h-6 text-blue-600 mr-2"></i> Upload Your Proof
+        </h2>
+
+        <!-- Formulaire d'upload -->
+        <form id="upload-form"
+              hx-post="/api/tasks/{{ app.id }}/"
+              hx-target="#task-response"
+              hx-trigger="submit"
+              hx-on::after-request="if (event.detail.xhr.getResponseHeader('HX-Redirect')) { window.location.href = event.detail.xhr.getResponseHeader('HX-Redirect'); }"
+              enctype="multipart/form-data"
+              class="mt-4">
+            {% csrf_token %}
+
+            <label class="block text-gray-700 font-medium mb-2">Select an image:</label>
+            <input type="file" name="screenshot" accept="image/*"
+                   class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+            <!-- Bouton d'upload -->
+            <button type="submit"
+                    class="mt-4 bg-blue-500 text-white px-4 py-2 rounded w-full shadow-md hover:bg-blue-600 transition">
+                <i data-lucide="upload" class="w-5 h-5 inline mr-2"></i> Upload
+            </button>
+        </form>
+
+        <!-- Zone de feedback après soumission -->
+        <div id="task-response" class="mt-2 text-center text-gray-600"></div>
+    </div>
+</div>
+
+<!-- Script pour fermer le modal -->
+<script>
+    function closeModal() {
+        let modal = document.getElementById("task-upload-modal");
+        if (modal) {
+            modal.remove();  // Supprime le modal du DOM pour le cacher complètement
+        }
+    }
+</script>

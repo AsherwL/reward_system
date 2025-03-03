@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Reward System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="{% static 'images/award.png' %}">
+    <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
+        <!-- Titre avec icône -->
+        <h2 class="text-2xl font-bold text-blue-600 text-center mb-4 flex items-center justify-center">
+            <i data-lucide="user-plus" class="w-6 h-6 mr-2"></i> Sign Up
+        </h2>
+
+        <!-- Messages d'alerte -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="p-3 rounded mb-4 {% if message.tags == 'success' %}bg-green-100 text-green-600{% else %}bg-red-100 text-red-600{% endif %}">
+                    <i data-lucide="{% if message.tags == 'success' %}check-circle{% else %}alert-circle{% endif %}" class="w-5 h-5 inline mr-2"></i>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Formulaire -->
+        <form method="POST">
+            {% csrf_token %}
+
+            <label class="block text-sm font-medium text-gray-700">Username:</label>
+            <div class="flex items-center border rounded mb-4 px-2 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-400">
+                <i data-lucide="user" class="w-5 h-5 text-gray-400"></i>
+                <input type="text" name="username" required class="block w-full p-2 bg-transparent focus:outline-none">
+            </div>
+
+            <label class="block text-sm font-medium text-gray-700">Password:</label>
+            <div class="flex items-center border rounded mb-4 px-2 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-400">
+                <i data-lucide="lock" class="w-5 h-5 text-gray-400"></i>
+                <input type="password" name="password1" required class="block w-full p-2 bg-transparent focus:outline-none">
+            </div>
+
+            <label class="block text-sm font-medium text-gray-700">Confirm Password:</label>
+            <div class="flex items-center border rounded mb-4 px-2 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-400">
+                <i data-lucide="lock" class="w-5 h-5 text-gray-400"></i>
+                <input type="password" name="password2" required class="block w-full p-2 bg-transparent focus:outline-none">
+            </div>
+
+            <!-- Bouton Sign Up -->
+            <button type="submit"
+                class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded font-semibold transition flex items-center justify-center">
+                <i data-lucide="check-circle" class="w-5 h-5 mr-2"></i> Create Account
+            </button>
+        </form>
+
+        <!-- Lien vers la connexion -->
+        <div class="text-center mt-4">
+            <p class="text-gray-600">Already have an account? 
+                <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Log in</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

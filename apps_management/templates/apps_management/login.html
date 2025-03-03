@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Reward System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
+        <!-- Titre avec icône -->
+        <h2 class="text-2xl font-bold text-blue-600 text-center mb-4 flex items-center justify-center">
+            <i data-lucide="log-in" class="w-6 h-6 mr-2"></i> Login
+        </h2>
+
+        <!-- Message d'erreur -->
+        {% if error %}
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 mb-4 flex items-center">
+                <i data-lucide="alert-circle" class="w-5 h-5 mr-2"></i> {{ error }}
+            </div>
+        {% endif %}
+
+        <!-- Formulaire -->
+        <form method="POST">
+            {% csrf_token %}
+
+            <label class="block text-sm font-medium text-gray-700">Username:</label>
+            <div class="flex items-center border rounded mb-4 px-2 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-400">
+                <i data-lucide="user" class="w-5 h-5 text-gray-400"></i>
+                <input type="text" name="username" required class="block w-full p-2 bg-transparent focus:outline-none">
+            </div>
+
+            <label class="block text-sm font-medium text-gray-700">Password:</label>
+            <div class="flex items-center border rounded mb-4 px-2 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-400">
+                <i data-lucide="lock" class="w-5 h-5 text-gray-400"></i>
+                <input type="password" name="password" required class="block w-full p-2 bg-transparent focus:outline-none">
+            </div>
+
+            <!-- Bouton Login -->
+            <button type="submit"
+                class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition flex items-center justify-center">
+                <i data-lucide="unlock" class="w-5 h-5 mr-2"></i> Login
+            </button>
+        </form>
+
+        <!-- Lien vers l'inscription -->
+        <div class="text-center mt-4">
+            <p class="text-gray-600">Don't have an account?
+                <a href="{% url 'subscribe' %}" class="text-blue-500 hover:underline font-semibold">
+                    Sign up here
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

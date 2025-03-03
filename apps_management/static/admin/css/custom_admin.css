@@ -1,0 +1,24 @@
+/***** Personnalisation du Django Admin *****/
+
+/* Changer la couleur de la barre supérieure */
+div#header {
+    background-color: #2d3748 !important;  /* Bleu foncé */
+}
+
+/* Changer la couleur des liens */
+.module h2, .module caption {
+    background-color: #4a5568 !important;
+    color: white !important;
+}
+
+/* Boutons personnalisés */
+input[type="submit"], button {
+    background-color: #3182ce !important;
+    border-radius: 5px;
+}
+
+/* Ajout d’un logo */
+div#branding h1 {
+    background: url('/static/admin/img/logo.png') no-repeat left center;
+    padding-left: 60px; /* Ajuste selon la taille du logo */
+}

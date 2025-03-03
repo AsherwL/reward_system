@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto p-6 max-w-screen-lg">
+    <h2 class="text-2xl font-bold text-blue-600 text-center md:text-left">Your Submitted Tasks</h2>
+
+
+    <!-- Filtres avec HTMX (Responsive avec flex-wrap) -->
+    <div class="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
+        <button hx-get="/api/tasks/?status=all" hx-target="#tasks-list" hx-trigger="click"
+            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
+            All
+        </button>
+        <button hx-get="/api/tasks/?status=approved" hx-target="#tasks-list" hx-trigger="click"
+            class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
+            Approved
+        </button>
+        <button hx-get="/api/tasks/?status=pending" hx-target="#tasks-list" hx-trigger="click"
+            class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition">
+            Pending
+        </button>
+        <button hx-get="/api/tasks/?status=rejected" hx-target="#tasks-list" hx-trigger="click"
+            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+            Rejected
+        </button>
+    </div>
+
+    <!-- Zone où seront affichées les tâches (chargement HTMX) -->
+    <div id="tasks-list"
+         hx-get="/api/tasks/"
+         hx-trigger="load"
+         hx-target="#tasks-list"
+         class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <p class="text-gray-500 text-center col-span-full">Loading your tasks...</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="text-center py-12 px-4">
+    <!-- Icône dynamique -->
+    <div class="flex justify-center mb-4 animate-fade-in">
+        <i data-lucide="gift" class="w-12 h-12 text-blue-700"></i>
+    </div>
+
+    <!-- Titre avec animation -->
+    <h2 class="text-4xl font-extrabold text-blue-700 opacity-0 animate-fade-in-up">
+        Welcome to Your Reward Journey!
+    </h2>
+    <p class="mt-4 text-lg text-gray-600 font-medium">
+        Earn exciting rewards by completing tasks and exploring new apps.
+    </p>
+
+    <!-- Section Applications (chargées dynamiquement) -->
+    <div id="app-list"
+        hx-get="/apps/"
+        hx-trigger="load"
+        hx-target="#app-list"
+        class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center px-2">
+
+        <!-- Loader animé amélioré -->
+        <div class="col-span-full flex flex-col justify-center items-center">
+            <div class="flex space-x-2">
+                <div class="w-5 h-5 bg-blue-500 rounded-full animate-bounce"></div>
+                <div class="w-5 h-5 bg-blue-500 rounded-full animate-bounce delay-150"></div>
+                <div class="w-5 h-5 bg-blue-500 rounded-full animate-bounce delay-300"></div>
+            </div>
+            <p class="text-gray-500 mt-3 text-lg font-medium">Fetching the best opportunities for you...</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

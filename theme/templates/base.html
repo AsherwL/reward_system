@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Reward System{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'images/award.png' %}">
+
+    <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        function toggleMenu() {
+            let sidebar = document.getElementById("sidebar");
+            let content = document.getElementById("content");
+
+            sidebar.classList.toggle("-translate-x-full");
+            content.classList.toggle("md:ml-64");
+        }
+    </script>
+</head>
+
+<body class="bg-gray-100 text-gray-900 font-sans flex flex-col min-h-screen">
+
+    <!-- Sidebar (Navbar latérale) -->
+    <nav id="sidebar" class="bg-gradient-to-b from-blue-100 to-gray-600 text-gray-900 w-64 min-h-screen fixed left-0 top-0 p-6 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out shadow-xl z-50">
+        <h2 class="text-xl font-semibold mb-6 flex items-center">
+            <i data-lucide="award" class="w-6 h-6 mr-2 text-blue-700"></i> Reward System
+        </h2>
+        <ul class="space-y-2">
+            <li>
+                <a href="{% url 'home' %}" class="flex items-center p-3 rounded-lg transition-all duration-300 hover:bg-blue-200 hover:pl-5">
+                    <i data-lucide="home" class="w-5 h-5 mr-3 text-blue-700"></i> Home
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'tasks' %}" class="flex items-center p-3 rounded-lg transition-all duration-300 hover:bg-blue-200 hover:pl-5">
+                    <i data-lucide="check-square" class="w-5 h-5 mr-3 text-blue-700"></i> Tasks
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'profile' %}" class="flex items-center p-3 rounded-lg transition-all duration-300 hover:bg-blue-200 hover:pl-5">
+                    <i data-lucide="user" class="w-5 h-5 mr-3 text-blue-700"></i> Profile
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}" class="flex items-center p-3 bg-red-500 text-white rounded-lg transition-all duration-300 hover:bg-red-600 hover:pl-5">
+                    <i data-lucide="log-out" class="w-5 h-5 mr-3"></i> Logout
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Bouton pour afficher la sidebar sur mobile -->
+    <button onclick="toggleMenu()" class="md:hidden fixed top-4 left-4 bg-blue-600 text-white p-2 rounded shadow-lg z-50">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+    </button>
+
+    <!-- Main Content -->
+    <div id="content" class="flex-1 md:ml-64 p-6 mt-16">
+        <div class="container mx-auto bg-white shadow-lg rounded-lg p-6">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-full text-center bg-gray-200 text-gray-700 py-3 mt-auto">
+        <p>&copy; 2025 Reward System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% for app in apps %}
+<div class="rounded-2xl shadow-lg p-5 bg-white transform hover:scale-105 hover:shadow-2xl transition duration-300 ease-in-out w-full max-w-xs mx-auto">
+    <!-- Logo de l'application avec fallback -->
+    <div class="flex justify-center mb-3">
+        <img src="{{ app.get_logo }}" alt="{{ app.name }}" class="w-16 h-16 rounded-lg shadow-md object-cover"
+             onerror="this.onerror=null; this.src='/static/default_app_logo.png';">
+    </div>
+
+    <!-- Nom de l'application avec lien -->
+    <h3 class="text-lg font-semibold text-center">
+        <a href="{{ app.link_app }}" target="_blank" class="text-blue-700 hover:underline">
+            {{ app.name }}
+        </a>
+    </h3>
+
+    <!-- Points -->
+    <p class="text-gray-600 mt-1 text-center text-sm">
+        <i data-lucide="target" class="w-4 h-4 inline text-blue-500"></i>
+        Points: <span class="font-bold text-blue-500">{{ app.points }}</span>
+    </p>
+
+    <!-- Boutons Actions (Horizontal sur mobile) -->
+    <div class="mt-4 flex flex-wrap justify-center gap-2">
+        <!-- Bouton de téléchargement -->
+        <a href="{{ app.download_link }}" target="_blank"
+            class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-300 flex items-center justify-center w-32 text-sm">
+            Download
+        </a>
+
+        <button hx-get="/tasks/{{ app.id }}/"
+                hx-target="#modal-container"
+                hx-trigger="click"
+                class="bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 transition duration-300 flex items-center justify-center w-32 text-sm">
+            Upload Proof
+        </button>
+    </div>
+
+</div>
+{% endfor %}
+<!-- Conteneur pour charger dynamiquement le modal -->
+<div id="modal-container"></div>
